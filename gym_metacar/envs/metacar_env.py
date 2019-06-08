@@ -1,8 +1,6 @@
 import gym
 from gym import error, spaces, utils
-#from gym.utils import seeding
 from selenium import webdriver
-
 from selenium.webdriver.chrome.options import Options
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.support.ui import WebDriverWait
@@ -10,11 +8,12 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
 import time
 import os
-#import matplotlib.pyplot as plt
 from PIL import Image
 from io import BytesIO
 import pygame
 import numpy as np
+import atexit
+
 
 print("Gym Metacar. Preparing. This might take a moment...")
 options = Options()
@@ -139,5 +138,13 @@ class MetacarEnv(gym.Env):
         # Flip
         pygame.display.flip()
 
+
     def close(self):
-        driver.quit()
+        pygame.quit()
+
+
+# Close the driver in the end
+def metacar_env_exit():
+    print("Thank you for playing.")
+    driver.quit()
+atexit.register(metacar_env_exit)
