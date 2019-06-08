@@ -36,7 +36,7 @@ class MetacarEnv(gym.Env):
         self.level = level
         self.discrete = discrete
 
-        html_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "metacar.html")
+        html_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "resources", "metacar.html")
         url = "file://" + html_file
         driver.get(url)
 

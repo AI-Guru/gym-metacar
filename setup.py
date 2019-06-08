@@ -11,5 +11,5 @@ setup(
     url="https://github.com/AI-Guru/gym-metacar",
     install_requires=['gym', "pygame", "selenium"],
     packages=find_packages(),
-    package_data={"gym_lawnmower": ["envs/resources/*.png"]}
+    package_data={"gym_metacar": ["envs/resources/*.html"]}
 )
