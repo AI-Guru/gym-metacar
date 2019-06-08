@@ -69,6 +69,31 @@ env.close()
 
 ![A sceenshot of gym-metacar in action.](assets/screenshot-level3.jpg)
 
+
+# Wrappers.
+
+As all good environments, gym-metacar comes with wrappers.
+
+- ```gym_metacar.wrappers.LidarObservationWrapper```: Just uses the lidar-data in the observations.
+- ```gym_metacar.wrappers.LinearObservationWrapper```: Just uses the linear-data in the observations.
+- ```gym_metacar.wrappers.ClipRewardsWrapper ```: Clips the rewards to [-1, 1].
+
+
+Example:
+
+```
+import gym
+import gym_metacar
+from gym_metacar.wrappers import *
+
+env_id = "metacar-level3-discrete-v0"
+env = gym.make(env_id)
+env = LinearObservationWrapper(env)
+env = ClipRewardsWrapper(env)
+env = DummyVecEnv([lambda:env])
+env = VecFrameStack(env, n_stack=4)
+```
+
 # Deep Reinforcement Learning.
 
 The ```examples``` folders contains a DQN-agent. Note: This requires [stable baselines](https://github.com/hill-a/stable-baselines).
