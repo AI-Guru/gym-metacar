@@ -19,6 +19,8 @@ import numpy as np
 print("Gym Metacar. Preparing. This might take a moment...")
 options = Options()
 options.headless = True
+options.add_argument('--no-sandbox')
+options.add_argument('--disable-dev-shm-usage')
 options.add_argument('window-size=1200x600') # optional
 driver = webdriver.Chrome("chromedriver", options=options)
 print("Created web driver.")
