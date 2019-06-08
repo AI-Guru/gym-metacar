@@ -1,1 +1,99 @@
-#
+# Gym-Metacar.
+
+OpenAI Gym wrapper for Metacar: A reinforcement learning environment for self-driving cars in the browser. Uses selenium to wrap the original web-code.
+
+If you want to learn more, go tp the official metacar homepage:
+[https://www.metacar-project.com](https://www.metacar-project.com)
+
+
+# Installation.
+
+Straightforward:
+
+```
+pip/conda install git+https://github.com/AI-Guru/gym-metacar
+```
+
+# Environments.
+
+A total of four different levels are available. Each can be instantiated with either discrete or continous action spaces.
+
+The complete list of environments:
+
+```
+metacar-level0-discrete-v0
+metacar-level0-continuous-v0
+metacar-level1-discrete-v0
+metacar-level1-continuous-v0
+metacar-level2-discrete-v0v0
+metacar-level2-continuous-v0
+metacar-level3-discrete-v0
+metacar-level3-continuous-v0
+```
+
+# How to run.
+
+As with all gym-compatible environments, gym-metacar is very easy to run.
+
+```python
+import gym
+import gym_metacar
+
+env = gym.make("metacar-level0-discrete-v0)
+env.reset()
+print(env.observation_space)
+print(env.action_space)
+
+for step in range(100):
+    print(step)
+    observation, reward, done, info = env.step(env.action_space.sample())
+    env.render()
+env.close()
+```
+
+# Screenshots.
+
+## Level0.
+
+![A sceenshot of gym-metacar in action.](assets/screenshot-level0.jpg)
+
+## Level1.
+
+![A sceenshot of gym-metacar in action.](assets/screenshot-level1.jpg)
+
+## Level2.
+
+![A sceenshot of gym-metacar in action.](assets/screenshot-level2.jpg)
+
+## Level3.
+
+![A sceenshot of gym-metacar in action.](assets/screenshot-level3.jpg)
+
+# Deep Reinforcement Learning.
+
+The ```examples``` folders contains a DQN-agent. Note: This requires [stable baselines](https://github.com/hill-a/stable-baselines).
+
+For training:
+
+```
+python metacar_dqn_train.py
+```
+
+For running after training:
+
+```
+python metacar_dqn_enjoy.py
+```
+
+# Getting in touch.
+
+If you got any bug reports or feature requests, please open an issue here on GitHub.
+
+- [Becoma a patron](https://www.patreon.com/ai_guru).
+- [Subscribe to my newsletter](http://ai-guru.de/newsletter/).
+- [Visit by homepage/blog](http://ai-guru.de/).
+- [Join me on Slack](https://join.slack.com/t/ai-guru/shared_invite/enQtNDEzNjUwMTIwODM0LTdlOWQ1ZTUyZmQ5YTczOTUxYzk2YWI4ZmE0NTdmZGQxMmUxYmUwYmRhMDg1ZDU0NTUxMDI2OWVkOGFjYTViOGQ).
+- [Add me on LinkedIn](https://www.linkedin.com/in/dr-tristan-behrens-ai-guru-734967a2/).
+- [Add me on Facebook](https://www.facebook.com/AIGuruTristanBehrens).
+
+Thank you!
