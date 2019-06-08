@@ -47,13 +47,32 @@ class MetacarEnv(gym.Env):
         except TimeoutException:
             raise Exception("Loading took too much time!")
 
+        # Observation space.
+        if self.discrete == True:
+            lidar_space = spaces.Box(low=-1, high=1, shape=(5, 5), dtype=np.uint8)
+            linear_space = spaces.Box(low=-1, high=1, shape=(26,), dtype=np.uint8)
+            v_space = spaces.Box(low=-1, high=1, shape=(1,))
+            self.observation_space = spaces.Dict({"lidar": lidar_space, "linear": linear_space, "v": v_space})
+        else:
+            lidar_space = spaces.Box(low=-1, high=1, shape=(5, 5), dtype=np.uint8)
+            linear_space = spaces.Box(low=-1, high=1, shape=(26,), dtype=np.uint8)
+            a_space = spaces.Box(low=-1, high=1, shape=(1,))
+            v_space = spaces.Box(low=-1, high=1, shape=(1,))
+            steering_space = spaces.Box(low=-1, high=1, shape=(1,))
+            self.observation_space = spaces.Dict({"lidar": lidar_space, "linear": linear_space, "a": v_space, "v": v_space, "steering": v_space})
+
+        # Action space.
+        if self.discrete == True:
+            self.action_space = spaces.Discrete(5)
+        else:
+            self.action_space = spaces.Box(low=np.array([0.0, -1.0]), high=np.array([1.0, 1.0]), dtype=np.float32)
+
         # Prepare for pygame.
         self._pygame_screen = None
 
 
     def step(self, action):
         reward = driver.execute_script(f"return env.step({action});")
-        observation = None
         observation = driver.execute_script(f"return env.getState();")
         done = False
         info = {}
@@ -80,25 +99,8 @@ class MetacarEnv(gym.Env):
         except TimeoutException:
             raise Exception("ERROR! Initializing environment took too much time!")
 
-        # Observation space.
-        if self.discrete == True:
-            lidar_space = spaces.Box(low=-1, high=1, shape=(5, 5), dtype=np.uint8)
-            linear_space = spaces.Box(low=-1, high=1, shape=(26,), dtype=np.uint8)
-            v_space = spaces.Box(low=-1, high=1, shape=(1,))
-            self.observation_space = spaces.Dict({"lidar": lidar_space, "linear": linear_space, "v": v_space})
-        else:
-            lidar_space = spaces.Box(low=-1, high=1, shape=(5, 5), dtype=np.uint8)
-            linear_space = spaces.Box(low=-1, high=1, shape=(26,), dtype=np.uint8)
-            a_space = spaces.Box(low=-1, high=1, shape=(1,))
-            v_space = spaces.Box(low=-1, high=1, shape=(1,))
-            steering_space = spaces.Box(low=-1, high=1, shape=(1,))
-            self.observation_space = spaces.Dict({"lidar": lidar_space, "linear": linear_space, "a": v_space, "v": v_space, "steering": v_space})
-
-        # Action space.
-        if self.discrete == True:
-            self.action_space = spaces.Discrete(5)
-        else:
-            self.action_space = spaces.Box(low=np.array([0.0, -1.0]), high=np.array([1.0, 1.0]), dtype=np.float32)
+        observation = driver.execute_script(f"return env.getState();")
+        return observation
 
 
     def render(self, mode='human', close=False):
