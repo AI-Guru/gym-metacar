@@ -20,7 +20,7 @@ print("Gym Metacar. Preparing. This might take a moment...")
 options = Options()
 options.headless = True
 options.add_argument('window-size=1200x600') # optional
-driver = webdriver.Chrome("/usr/local/bin/chromedriver", options=options)
+driver = webdriver.Chrome("chromedriver", options=options)
 print("Created web driver.")
 
 device_pixel_ratio = driver.execute_script("return window.devicePixelRatio")

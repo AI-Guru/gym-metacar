@@ -9,7 +9,7 @@ setup(
     long_description="OpenAI Gym wrapper for metacar.",
     long_description_content_type="text/markdown",
     url="https://github.com/AI-Guru/gym-metacar",
-    install_requires=['gym', "pygame"],
+    install_requires=['gym', "pygame", "selenium"],
     packages=find_packages(),
     package_data={"gym_lawnmower": ["envs/resources/*.png"]}
 )
