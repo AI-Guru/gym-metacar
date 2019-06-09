@@ -14,22 +14,24 @@ Straightforward:
 pip/conda install git+https://github.com/AI-Guru/gym-metacar
 ```
 
+**Note:** Please make sure that ```chromedriver``` is installed on your system.
+
 # Environments.
 
 A total of four different levels are available. Each can be instantiated with either discrete or continous action spaces.
 
 The complete list of environments:
 
-```
-metacar-level0-discrete-v0
-metacar-level0-continuous-v0
-metacar-level1-discrete-v0
-metacar-level1-continuous-v0
-metacar-level2-discrete-v0v0
-metacar-level2-continuous-v0
-metacar-level3-discrete-v0
-metacar-level3-continuous-v0
-```
+
+- ```metacar-level0-discrete-v0```
+- ```metacar-level0-continuous-v0```
+- ```metacar-level1-discrete-v0```
+- ```metacar-level1-continuous-v0```
+- ```metacar-level2-discrete-v0v0```
+- ```metacar-level2-continuous-v0```
+- ```metacar-level3-discrete-v0```
+- ```metacar-level3-continuous-v0```
+
 
 # How to run.
 
@@ -92,6 +94,21 @@ env = LinearObservationWrapper(env)
 env = ClipRewardsWrapper(env)
 env = DummyVecEnv([lambda:env])
 env = VecFrameStack(env, n_stack=4)
+```
+
+# Rendering with Web-Driver.
+
+Per default, the environment renderer uses PyGame. If you want to use the web-renderer, you have to instantiate it explicitely:
+
+```
+import gym
+import gym_metacar
+from gym_metacar.wrappers import *
+
+env_id = "metacar-level3-discrete-v0"
+env = gym.make(env_id)
+env.enable_webrenderer() # This enables the web-renderer.
+[...]
 ```
 
 # Deep Reinforcement Learning.
