@@ -79,7 +79,12 @@ class MetacarEnv(gym.Env):
             raise Exception("ERROR! You have to reset the environment.")
 
         # Execute one step and get the reward.
-        reward = selenium_webdriver.execute_script("return env.step({});".format(action))
+        if self.discrete == True:
+            reward = selenium_webdriver.execute_script("return env.step({});".format(action))
+        else:
+            action = "[" + ", ".join([str(a) for a in action]) + "]"
+            print(action)
+            reward = selenium_webdriver.execute_script("return env.step({});".format(action))
 
         # Get the observation from the environment.
         observation = selenium_webdriver.execute_script("return env.getState();")
@@ -136,7 +141,7 @@ class MetacarEnv(gym.Env):
         if self.discrete == True:
             script += 'env.setAgentMotion(metacar.motion.BasicMotion, {rotationStep: 0.25});' + "\n"
         else:
-            script += 'env.setAgentMotion(metacar.motion.ControlMotion);' + "\n"
+            script += 'env.setAgentMotion(metacar.motion.ControlMotion, {});' + "\n"
         script += 'env.load().then(() => { document.getElementById("canvas").style.visibility = "visible"; });' + "\n"
         selenium_webdriver.execute_script(script)
 

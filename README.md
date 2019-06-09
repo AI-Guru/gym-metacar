@@ -27,6 +27,24 @@ pip/conda install git+https://github.com/AI-Guru/gym-metacar
 
 **Note:** Please make sure that ```chromedriver``` is installed on your system.
 
+## Mac. 
+
+```
+brew cask install google-chrome
+brew cask install chromedriver
+```
+
+## Linux. 
+
+```
+apt install chromium-chromedriver
+apt-get install -y libglib2.0-0 libnss3 libgconf-2-4 libfontconfig1
+```
+
+## Windows.
+
+Consider moving to Mac/Linux ;)
+
 # Environments.
 
 A total of four different levels are available. Each can be instantiated with either discrete or continous action spaces.
