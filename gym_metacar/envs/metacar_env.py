@@ -14,13 +14,21 @@ import pygame
 import numpy as np
 import atexit
 
+
+# Uses a selenium webdriver under the hood
 selenium_webdriver = None
 
+
 class MetacarEnv(gym.Env):
+    """
+    OpenAI Gym wrapper for Metacar: A reinforcement learning environment for self-driving cars in the browser.
+    """
+
     metadata = {'render.modes': ['human']}
 
     def __init__(self, level, discrete):
 
+        # Store parameters.
         self.level = level
         self.discrete = discrete
 
@@ -50,21 +58,49 @@ class MetacarEnv(gym.Env):
         # Prepare for web rendering.
         self.webrenderer = False
 
+        # The environment should be reset before use.
+        self.reset = False
+
+
     def enable_webrenderer(self):
+        """
+        Enables the web-renderer. Disables pygame.
+        """
+
         self.webrenderer = True
 
+
     def step(self, action):
+        """
+        Performs one step in the environment.
+        """
+
+        if self.reset == False:
+            raise Exception("ERROR! You have to reset the environment.")
+
+        # Execute one step and get the reward.
         reward = selenium_webdriver.execute_script(f"return env.step({action});")
+
+        # Get the observation from the environment.
         observation = selenium_webdriver.execute_script(f"return env.getState();")
+
+        # So far, simulations do not end.
         done = False
+
+        # No info to provide.
         info = {}
+
         return observation, reward, done, info
 
+
     def reset(self):
+        """
+        Resets the environment
+        """
 
         global selenium_webdriver
 
-        # Close webdriver.
+        # Close webdriver if open.
         if selenium_webdriver != None:
             selenium_webdriver.quit()
 
@@ -73,7 +109,7 @@ class MetacarEnv(gym.Env):
         options = Options()
         if self.webrenderer == False:
             options.headless = True
-            options.add_argument('window-size=800x800') # optional
+            options.add_argument('window-size=800x800')
         else:
             options.headless = False
         options.add_argument('no-sandbox')
@@ -82,7 +118,7 @@ class MetacarEnv(gym.Env):
         selenium_webdriver = webdriver.Chrome("chromedriver", options=options)
         print("Created web driver.")
 
-        # Load the web page.
+        # Load the underlying web page.
         html_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "resources", "metacar.html")
         url = "file://" + html_file
         selenium_webdriver.get(url)
@@ -90,7 +126,7 @@ class MetacarEnv(gym.Env):
         try:
             _ = WebDriverWait(selenium_webdriver, delay).until(EC.presence_of_element_located((By.ID, "canvas")))
         except TimeoutException:
-            raise Exception("Loading took too much time!")
+            raise Exception("ERROR! Could not load unterlying web page")
 
         # Trigger environment initialization.
         script = ""
@@ -109,13 +145,20 @@ class MetacarEnv(gym.Env):
         try:
             _ = WebDriverWait(selenium_webdriver, delay).until(EC.visibility_of_element_located((By.ID, "canvas")))
         except TimeoutException:
-            raise Exception("ERROR! Initializing environment took too much time!")
+            raise Exception("ERROR! Could not initialize the environment in time.")
 
+        # Success!
+        self.reset = True
+
+        # Yield the first observation.
         observation = selenium_webdriver.execute_script(f"return env.getState();")
         return observation
 
 
     def render(self, mode='human', close=False):
+        """
+        Renders the current scene.
+        """
 
         # Update web renderer.
         if self.webrenderer == True:
@@ -127,6 +170,7 @@ class MetacarEnv(gym.Env):
             # Get the canvas element.
             element = selenium_webdriver.find_element_by_id("canvas").find_elements_by_css_selector("*")[0]
 
+            # Get pixel ration to deal with retina/no-retina displays.
             device_pixel_ratio = selenium_webdriver.execute_script("return window.devicePixelRatio")
 
             # Lazy loading pygame.
@@ -162,6 +206,10 @@ class MetacarEnv(gym.Env):
 
 
     def close(self):
+        """
+        Closes the environment.
+        """
+
         pygame.quit()
 
 

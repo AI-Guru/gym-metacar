@@ -2,7 +2,7 @@
 
 OpenAI Gym wrapper for Metacar: A reinforcement learning environment for self-driving cars in the browser. Uses selenium to wrap the original web-code.
 
-If you want to learn more, go tp the official metacar homepage:
+If you want to learn more, go to the official metacar homepage:
 [https://www.metacar-project.com](https://www.metacar-project.com)
 
 
