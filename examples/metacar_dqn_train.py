@@ -29,10 +29,10 @@ model = DQN(
     MlpPolicy,
     env=env,
     learning_rate=0.00025,
-    target_network_update_freq=10000,
-    learning_starts=50000,
-    buffer_size=1000000,
+    target_network_update_freq=10_000,
+    learning_starts=5_000,
+    buffer_size=50_000,
     verbose=1, tensorboard_log=tensorboard_log)
 
-model.learn(total_timesteps=1000000)
+model.learn(total_timesteps=1_000_000)
 model.save("metacar-dqn")
