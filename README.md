@@ -6,6 +6,17 @@ If you want to learn more, go to the official metacar homepage:
 [https://www.metacar-project.com](https://www.metacar-project.com)
 
 
+# Getting in touch.
+
+If you got any bug reports or feature requests, please open an issue here on GitHub.
+
+- [Becoma a patron](https://www.patreon.com/ai_guru).
+- [Subscribe to my newsletter](http://ai-guru.de/newsletter/).
+- [Visit by homepage/blog](http://ai-guru.de/).
+- [Join me on Slack](https://join.slack.com/t/ai-guru/shared_invite/enQtNDEzNjUwMTIwODM0LTdlOWQ1ZTUyZmQ5YTczOTUxYzk2YWI4ZmE0NTdmZGQxMmUxYmUwYmRhMDg1ZDU0NTUxMDI2OWVkOGFjYTViOGQ).
+- [Add me on LinkedIn](https://www.linkedin.com/in/dr-tristan-behrens-ai-guru-734967a2/).
+- [Add me on Facebook](https://www.facebook.com/AIGuruTristanBehrens).
+
 # Installation.
 
 Straightforward:
@@ -126,16 +137,5 @@ For running after training:
 ```
 python metacar_dqn_enjoy.py
 ```
-
-# Getting in touch.
-
-If you got any bug reports or feature requests, please open an issue here on GitHub.
-
-- [Becoma a patron](https://www.patreon.com/ai_guru).
-- [Subscribe to my newsletter](http://ai-guru.de/newsletter/).
-- [Visit by homepage/blog](http://ai-guru.de/).
-- [Join me on Slack](https://join.slack.com/t/ai-guru/shared_invite/enQtNDEzNjUwMTIwODM0LTdlOWQ1ZTUyZmQ5YTczOTUxYzk2YWI4ZmE0NTdmZGQxMmUxYmUwYmRhMDg1ZDU0NTUxMDI2OWVkOGFjYTViOGQ).
-- [Add me on LinkedIn](https://www.linkedin.com/in/dr-tristan-behrens-ai-guru-734967a2/).
-- [Add me on Facebook](https://www.facebook.com/AIGuruTristanBehrens).
 
 Thank you!
