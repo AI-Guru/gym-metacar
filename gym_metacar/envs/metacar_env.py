@@ -59,7 +59,7 @@ class MetacarEnv(gym.Env):
         self.webrenderer = False
 
         # The environment should be reset before use.
-        self.reset = False
+        self.has_been_reset = False
 
 
     def enable_webrenderer(self):
@@ -75,7 +75,7 @@ class MetacarEnv(gym.Env):
         Performs one step in the environment.
         """
 
-        if self.reset == False:
+        if self.has_been_reset == False:
             raise Exception("ERROR! You have to reset the environment.")
 
         # Execute one step and get the reward.
@@ -148,7 +148,7 @@ class MetacarEnv(gym.Env):
             raise Exception("ERROR! Could not initialize the environment in time.")
 
         # Success!
-        self.reset = True
+        self.has_been_reset = True
 
         # Yield the first observation.
         observation = selenium_webdriver.execute_script("return env.getState();")
