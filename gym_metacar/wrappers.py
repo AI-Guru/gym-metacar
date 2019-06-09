@@ -27,6 +27,22 @@ class LidarObservationWrapper(gym.ObservationWrapper):
         return observation["lidar"]
 
 
+class TerminateWrapper(gym.Wrapper):
+    """
+    Stops the simulation when the reward is -1.
+    """
+
+    def __init__(self, env):
+        super(TerminateWrapper, self).__init__(env)
+
+    def step(self, action):
+        observation, reward, done, info = super().step(action)
+        if reward == -1:
+            done = True
+            print("Simulation is done.")
+        return observation, reward, done, info
+
+
 class ClipRewardsWrapper(gym.RewardWrapper):
     """
     Clips the rewards.

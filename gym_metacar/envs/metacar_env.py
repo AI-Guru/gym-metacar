@@ -105,23 +105,20 @@ class MetacarEnv(gym.Env):
 
         global selenium_webdriver
 
-        # Close webdriver if open.
-        if selenium_webdriver != None:
-            selenium_webdriver.quit()
-
-        # Enable webdriver.
-        print("Creating web driver...")
-        options = Options()
-        if self.webrenderer == False:
-            options.headless = True
-            options.add_argument('window-size=800x800')
-        else:
-            options.headless = False
-        options.add_argument('no-sandbox')
-        options.add_argument('disable-dev-shm-usage')
-        options.add_argument("disable-infobars");
-        selenium_webdriver = webdriver.Chrome("chromedriver", options=options)
-        print("Created web driver.")
+        # Lazy enable webdriver.
+        if selenium_webdriver == None:
+            print("Creating web driver...")
+            options = Options()
+            if self.webrenderer == False:
+                options.headless = True
+                options.add_argument('window-size=800x800')
+            else:
+                options.headless = False
+            options.add_argument('no-sandbox')
+            options.add_argument('disable-dev-shm-usage')
+            options.add_argument("disable-infobars");
+            selenium_webdriver = webdriver.Chrome("chromedriver", options=options)
+            print("Created web driver.")
 
         # Load the underlying web page.
         html_file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "resources", "metacar.html")

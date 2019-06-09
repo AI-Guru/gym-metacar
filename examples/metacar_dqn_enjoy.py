@@ -10,30 +10,28 @@ except:
 from gym_metacar.wrappers import *
 
 from stable_baselines import *
-from stable_baselines.deepq.policies import *
 from stable_baselines.common.vec_env import *
-
-# TODO observation wrapper
-# TODO reward wrapper
 
 env_id = "metacar-level3-discrete-v0"
 env = gym.make(env_id)
+env.enable_webrenderer()
 env = LinearObservationWrapper(env)
 #env = TerminateWrapper(env)
 env = ClipRewardsWrapper(env)
 env = DummyVecEnv([lambda:env])
 env = VecFrameStack(env, n_stack=4)
 
-# Create the agent.
-tensorboard_log = "logs/metacar-dqn"
-model = DQN(
-    MlpPolicy,
-    env=env,
-    #learning_rate=0.00025,
-    target_network_update_freq=10000,
-    learning_starts=100000,
-    buffer_size=100000,
-    verbose=1, tensorboard_log=tensorboard_log)
+# Load the trained agent
+model = DQN.load("metacar-dqn")
 
-model.learn(total_timesteps=4000000)
-model.save("metacar-dqn")
+# Enjoy trained agent
+obs = env.reset()
+for i in range(1000):
+    action, _states = model.predict(obs)
+    obs, rewards, done, info = env.step(action)
+    if done == True:
+        env.reset()
+        continue
+    env.render()
+
+env.close()

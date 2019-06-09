@@ -107,6 +107,7 @@ As all good environments, gym-metacar comes with wrappers.
 
 - ```gym_metacar.wrappers.LidarObservationWrapper```: Just uses the lidar-data in the observations.
 - ```gym_metacar.wrappers.LinearObservationWrapper```: Just uses the linear-data in the observations.
+- ```gym_metacar.wrappers.TerminateWrapper```: Terminates the simulation if the reward is -1.
 - ```gym_metacar.wrappers.ClipRewardsWrapper ```: Clips the rewards to [-1, 1].
 
 
