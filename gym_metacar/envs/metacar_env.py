@@ -79,10 +79,10 @@ class MetacarEnv(gym.Env):
             raise Exception("ERROR! You have to reset the environment.")
 
         # Execute one step and get the reward.
-        reward = selenium_webdriver.execute_script(f"return env.step({action});")
+        reward = selenium_webdriver.execute_script("return env.step({});".format(action))
 
         # Get the observation from the environment.
-        observation = selenium_webdriver.execute_script(f"return env.getState();")
+        observation = selenium_webdriver.execute_script("return env.getState();")
 
         # So far, simulations do not end.
         done = False
@@ -151,7 +151,7 @@ class MetacarEnv(gym.Env):
         self.reset = True
 
         # Yield the first observation.
-        observation = selenium_webdriver.execute_script(f"return env.getState();")
+        observation = selenium_webdriver.execute_script("return env.getState();")
         return observation
 
 
