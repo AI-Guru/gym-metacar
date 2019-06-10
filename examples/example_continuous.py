@@ -13,7 +13,7 @@ env.reset()
 print(env.observation_space)
 print(env.action_space)
 
-for step in range(100):
+for step in range(1000):
     env.render()
     observation, _, _, _ = env.step(env.action_space.sample())
     print(step, observation)

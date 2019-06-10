@@ -9,7 +9,7 @@ except:
 
 from gym_metacar.wrappers import *
 
-from stable_baselines import *
+from stable_baselines import DQN
 from stable_baselines.common.vec_env import *
 
 env_id = "metacar-random-discrete-v0"

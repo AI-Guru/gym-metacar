@@ -51,7 +51,7 @@ class MetacarEnv(gym.Env):
         if self.discrete == True:
             self.action_space = spaces.Discrete(5)
         else:
-            self.action_space = spaces.Box(low=np.array([0.0, -1.0]), high=np.array([1.0, 1.0]), dtype=np.float32)
+            self.action_space = spaces.Box(low=np.array([-1.0, -1.0]), high=np.array([1.0, 1.0]), dtype=np.float32)
 
         # Prepare for pygame.
         self._pygame_screen = None
@@ -84,7 +84,6 @@ class MetacarEnv(gym.Env):
             reward = selenium_webdriver.execute_script("return env.step({});".format(action))
         else:
             action = "[" + ", ".join([str(a) for a in action]) + "]"
-            print(action)
             reward = selenium_webdriver.execute_script("return env.step({});".format(action))
 
         # Get the observation from the environment.

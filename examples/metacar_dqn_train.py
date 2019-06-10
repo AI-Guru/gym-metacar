@@ -9,12 +9,9 @@ except:
 
 from gym_metacar.wrappers import *
 
-from stable_baselines import *
+from stable_baselines import DQN
 from stable_baselines.deepq.policies import *
 from stable_baselines.common.vec_env import *
-
-# TODO observation wrapper
-# TODO reward wrapper
 
 env_id = "metacar-random-discrete-v0"
 env = gym.make(env_id)
@@ -23,8 +20,6 @@ env = TerminateWrapper(env)
 env = ClipRewardsWrapper(env)
 env = DummyVecEnv([lambda:env])
 env = VecFrameStack(env, n_stack=4)
-
-env.reset()
 
 # Create the agent.
 tensorboard_log = "logs/metacar-dqn"
