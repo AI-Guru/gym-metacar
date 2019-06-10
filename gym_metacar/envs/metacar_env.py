@@ -13,6 +13,7 @@ from io import BytesIO
 import pygame
 import numpy as np
 import atexit
+import random
 
 
 # Uses a selenium webdriver under the hood
@@ -34,13 +35,13 @@ class MetacarEnv(gym.Env):
 
         # Observation space.
         if self.discrete == True:
-            lidar_space = spaces.Box(low=-1, high=1, shape=(5, 5), dtype=np.uint8)
-            linear_space = spaces.Box(low=-1, high=1, shape=(26,), dtype=np.uint8)
+            lidar_space = spaces.Box(low=-1, high=1, shape=(5, 5), dtype=np.float32)
+            linear_space = spaces.Box(low=-1, high=1, shape=(26,), dtype=np.float32)
             v_space = spaces.Box(low=-1, high=1, shape=(1,))
             self.observation_space = spaces.Dict({"lidar": lidar_space, "linear": linear_space, "v": v_space})
         else:
-            lidar_space = spaces.Box(low=-1, high=1, shape=(5, 5), dtype=np.uint8)
-            linear_space = spaces.Box(low=-1, high=1, shape=(26,), dtype=np.uint8)
+            lidar_space = spaces.Box(low=-1, high=1, shape=(5, 5), dtype=np.float32)
+            linear_space = spaces.Box(low=-1, high=1, shape=(26,), dtype=np.float32)
             a_space = spaces.Box(low=-1, high=1, shape=(1,))
             v_space = spaces.Box(low=-1, high=1, shape=(1,))
             steering_space = spaces.Box(low=-1, high=1, shape=(1,))
@@ -131,9 +132,13 @@ class MetacarEnv(gym.Env):
             raise Exception("ERROR! Could not load unterlying web page")
 
         # Trigger environment initialization.
+        if self.level == "random":
+            level_string = random.choice(["level0", "level1", "level2", "level3"])
+        else:
+            level_string = self.level
         script = ""
         script += 'document.getElementById("canvas").style.visibility = "hidden"' + "\n"
-        script += 'let levelUrl = metacar.level.{}'.format(self.level) + "\n"
+        script += 'let levelUrl = metacar.level.{}'.format(level_string) + "\n"
         script += 'env = new metacar.env("canvas", levelUrl);' + "\n"
         if self.discrete == True:
             script += 'env.setAgentMotion(metacar.motion.BasicMotion, {rotationStep: 0.25});' + "\n"

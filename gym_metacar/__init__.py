@@ -11,7 +11,7 @@ def register_metacar_environment(level, action_space):
     print("Registered environment \"{}\"".format(id))
 
 # Register all environments.
-levels = ["level0", "level1", "level2", "level3"]
+levels = ["level0", "level1", "level2", "level3" , "random"]
 action_spaces = ["discrete", "continuous"]
 for level, action_space in itertools.product(levels, action_spaces):
     register_metacar_environment(level, action_space)

@@ -7,7 +7,7 @@ except:
     sys.path.append("..")
     import gym_metacar
 
-env = gym.make("metacar-level2-discrete-v0")
+env = gym.make("metacar-level0-discrete-v0")
 env.reset()
 print(env.observation_space)
 print(env.action_space)

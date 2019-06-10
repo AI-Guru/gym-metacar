@@ -16,13 +16,15 @@ from stable_baselines.common.vec_env import *
 # TODO observation wrapper
 # TODO reward wrapper
 
-env_id = "metacar-level3-discrete-v0"
+env_id = "metacar-random-discrete-v0"
 env = gym.make(env_id)
 env = LinearObservationWrapper(env)
-#env = TerminateWrapper(env)
+env = TerminateWrapper(env)
 env = ClipRewardsWrapper(env)
 env = DummyVecEnv([lambda:env])
 env = VecFrameStack(env, n_stack=4)
+
+env.reset()
 
 # Create the agent.
 tensorboard_log = "logs/metacar-dqn"
@@ -35,5 +37,5 @@ model = DQN(
     buffer_size=100000,
     verbose=1, tensorboard_log=tensorboard_log)
 
-model.learn(total_timesteps=4000000)
+model.learn(total_timesteps=10000000)
 model.save("metacar-dqn")
