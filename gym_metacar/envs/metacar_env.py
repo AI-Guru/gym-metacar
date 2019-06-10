@@ -144,7 +144,7 @@ class MetacarEnv(gym.Env):
             script += 'env.setAgentMotion(metacar.motion.BasicMotion, {rotationStep: 0.25});' + "\n"
         else:
             script += 'env.setAgentMotion(metacar.motion.ControlMotion, {});' + "\n"
-        script += 'env.load().then(() => { document.getElementById("canvas").style.visibility = "visible"; });' + "\n"
+        script += 'env.load().then(() => { document.getElementById("canvas").style.visibility = "visible"; env.shuffle({cars: false}); });' + "\n"
         selenium_webdriver.execute_script(script)
 
         # Wait for the environment to initialize.
