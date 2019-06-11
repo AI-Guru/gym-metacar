@@ -5,6 +5,9 @@ OpenAI Gym wrapper for Metacar: A reinforcement learning environment for self-dr
 If you want to learn more, go to the official metacar homepage:
 [https://www.metacar-project.com](https://www.metacar-project.com)
 
+# Always star if you like.
+
+If you enjoy this repo, please give it a star. That would be very appreciated!
 
 # Getting in touch.
 
@@ -27,14 +30,14 @@ pip/conda install git+https://github.com/AI-Guru/gym-metacar
 
 **Note:** Please make sure that ```chromedriver``` is installed on your system.
 
-## Mac. 
+## Mac.
 
 ```
 brew cask install google-chrome
 brew cask install chromedriver
 ```
 
-## Linux. 
+## Linux.
 
 ```
 apt install chromium-chromedriver
