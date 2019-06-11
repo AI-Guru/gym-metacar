@@ -44,6 +44,13 @@ apt install chromium-chromedriver
 apt-get install -y libglib2.0-0 libnss3 libgconf-2-4 libfontconfig1
 ```
 
+## Colaboratory.
+
+```
+!apt install chromium-chromedriver
+!pip install git+https://github.com/AI-Guru/gym-metacar.git
+```
+
 ## Windows.
 
 Consider moving to Mac/Linux ;)
