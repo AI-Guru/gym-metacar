@@ -32,5 +32,5 @@ model = DQN(
     buffer_size=100000,
     verbose=1, tensorboard_log=tensorboard_log)
 
-model.learn(total_timesteps=10000000)
+model.learn(total_timesteps=2000000)
 model.save("metacar-dqn")

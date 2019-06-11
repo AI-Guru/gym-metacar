@@ -27,14 +27,14 @@ pip/conda install git+https://github.com/AI-Guru/gym-metacar
 
 **Note:** Please make sure that ```chromedriver``` is installed on your system.
 
-## Mac. 
+## Mac.
 
 ```
 brew cask install google-chrome
 brew cask install chromedriver
 ```
 
-## Linux. 
+## Linux.
 
 ```
 apt install chromium-chromedriver
@@ -60,6 +60,10 @@ The complete list of environments:
 - ```metacar-level2-continuous-v0```
 - ```metacar-level3-discrete-v0```
 - ```metacar-level3-continuous-v0```
+- ```metacar-random-discrete-v0```
+- ```metacar-random-continuous-v0```
+
+The last two randomly select one of the levels above on each reset.
 
 
 # How to run.
@@ -113,7 +117,7 @@ As all good environments, gym-metacar comes with wrappers.
 
 Example:
 
-```
+```python
 import gym
 import gym_metacar
 from gym_metacar.wrappers import *
@@ -130,7 +134,7 @@ env = VecFrameStack(env, n_stack=4)
 
 Per default, the environment renderer uses PyGame. If you want to use the web-renderer, you have to instantiate it explicitely:
 
-```
+```python
 import gym
 import gym_metacar
 from gym_metacar.wrappers import *
