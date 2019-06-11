@@ -55,6 +55,29 @@ class TerminateWrapper(gym.Wrapper):
             done = True
         return observation, reward, done, info
 
+class StepLimitTerminateWrapper(gym.Wrapper):
+    """
+    Stops the simulation when steps limit exceeded.
+    """
+
+    def __init__(self, env, step_limit):
+        super(StepLimitTerminateWrapper, self).__init__(env)
+
+        self.step_limit = step_limit
+        self.current_step = 0
+
+    def step(self, action):
+        self.current_step += 1
+
+        observation, reward, done, info = super().step(action)
+        if self.current_step >= self.step_limit:
+            done = True
+        return observation, reward, done, info
+
+    def reset(self):
+        self.current_step = 0
+        return super().reset()
+
 
 class ClipRewardsWrapper(gym.RewardWrapper):
     """
