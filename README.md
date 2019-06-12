@@ -80,7 +80,7 @@ As with all gym-compatible environments, gym-metacar is very easy to run.
 import gym
 import gym_metacar
 
-env = gym.make("metacar-level0-discrete-v0)
+env = gym.make("metacar-level0-discrete-v0")
 env.reset()
 print(env.observation_space)
 print(env.action_space)
