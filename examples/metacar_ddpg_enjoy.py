@@ -17,6 +17,7 @@ env = gym.make(env_id)
 env.enable_webrenderer()
 env = LinearObservationWrapper(env)
 env = TerminateWrapper(env)
+env = StepLimitTerminateWrapper(env, 1000)
 env = ClipRewardsWrapper(env)
 env = DummyVecEnv([lambda:env])
 env = VecFrameStack(env, n_stack=4)
@@ -25,13 +26,13 @@ env = VecFrameStack(env, n_stack=4)
 model = DDPG.load("metacar-ddpg")
 
 # Enjoy trained agent
-obs = env.reset()
-for i in range(1000):
-    action, _states = model.predict(obs)
-    obs, rewards, done, info = env.step(action)
-    if done == True:
-        env.reset()
-        continue
-    env.render()
+for episode in range(10):
+    print("Episode ", episode)
+    obs = env.reset()
+    done = False
+    while done == False:
+        action, _states = model.predict(obs)
+        obs, rewards, done, info = env.step(action)
+        env.render()
 
 env.close()

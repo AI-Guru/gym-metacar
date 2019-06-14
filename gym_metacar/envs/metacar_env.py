@@ -86,8 +86,6 @@ class MetacarEnv(gym.Env):
         else:
             action = "[" + ", ".join([str(a) for a in action]) + "]"
             script = "return env.step({});".format(action)
-            #script = "env.stepping = false; " + script
-            print("SCRIPT" + script)
             reward = selenium_webdriver.execute_script(script)
 
         # Get the observation from the environment.
