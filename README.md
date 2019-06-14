@@ -156,6 +156,8 @@ env.enable_webrenderer() # This enables the web-renderer.
 
 The ```examples``` folders contains a DQN-agent. Note: This requires [stable baselines](https://github.com/hill-a/stable-baselines).
 
+## Discrete action space.
+
 For training:
 
 ```
@@ -168,4 +170,19 @@ For running after training:
 python metacar_dqn_enjoy.py
 ```
 
-Thank you!
+## Continuous action space.
+
+For training:
+
+```
+python metacar_ddpg_train.py
+```
+
+For running after training:
+
+```
+python metacar_dpg_enjoy.py
+```
+
+
+# Thank you!
