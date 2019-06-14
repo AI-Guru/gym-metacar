@@ -81,10 +81,14 @@ class MetacarEnv(gym.Env):
 
         # Execute one step and get the reward.
         if self.discrete == True:
-            reward = selenium_webdriver.execute_script("return env.step({});".format(action))
+            script = "return env.step({});".format(action)
+            reward = selenium_webdriver.execute_script(script)
         else:
             action = "[" + ", ".join([str(a) for a in action]) + "]"
-            reward = selenium_webdriver.execute_script("return env.step({});".format(action))
+            script = "return env.step({});".format(action)
+            #script = "env.stepping = false; " + script
+            print("SCRIPT" + script)
+            reward = selenium_webdriver.execute_script(script)
 
         # Get the observation from the environment.
         observation = selenium_webdriver.execute_script("return env.getState();")
@@ -143,7 +147,7 @@ class MetacarEnv(gym.Env):
             script += 'env.setAgentMotion(metacar.motion.BasicMotion, {rotationStep: 0.25});' + "\n"
         else:
             script += 'env.setAgentMotion(metacar.motion.ControlMotion, {});' + "\n"
-        script += 'env.load().then(() => { document.getElementById("canvas").style.visibility = "visible"; env.shuffle({cars: false}); });' + "\n"
+        script += 'env.load().then(() => { document.getElementById("canvas").style.visibility = "visible"; env.shuffle({cars: false}); env.steping(false); });' + "\n"
         selenium_webdriver.execute_script(script)
 
         # Wait for the environment to initialize.
